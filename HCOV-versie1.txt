@@ -1,0 +1,134 @@
+0	Onbepaald
+100	Quartaire Aquifersystemen 
+110	Ophogingen
+120	Duinen
+130	Polderafzettingen
+131	Kleiige polderafzettingen van de Kustvlakte
+132	Kleiige polderafzettingen van het Meetjesland
+133	Kleiige polderafzettingen van Waasland - Antwerpen
+134	Zandige Kreekruggen
+135	Veen-kleiige poelgronden
+140	Alluviale deklagen
+150	Deklagen
+151	Zandige deklagen
+152	Zand-lemige deklagen
+153	Lemige deklagen
+154	Kleiige deklagen
+160	Pleistocene afzettingen
+161	Pleistocene afzettingen van de Kustvlakte
+162	Pleistocene afzettingen van de Vlaamse Vallei
+163	Pleistocene afzettingen van de riviervalleien
+170	Maas- en Rijnafzettingen
+171	Afzettingen hoofdterras
+172	Afzettingen tussenterrassen
+173	Afzettingen Maasvlakte
+200	Kempens Aquifersysteem
+210	Afzettingen ten noorden van de Feldbiss-breukzone
+211	Zandige eenheid boven de Brunssum I-klei
+212	Brunssum I-klei
+213	Zand van Pey
+214	Brunssum II-klei
+215	Zand van Waubach
+220	Klei-zand complex van de Kempen
+221	Klei van Turnhout
+222	Zand van Beerse
+223	Klei van Rijkevorsel
+230	Pleistoceen en Plioceen Aquifer
+231	Zanden van Brasschaat en of Merksplas
+232	Zand van Mol
+233	Zandige top van Lillo
+234	Zand van Poederlee en of zandige top van Kasterlee
+240	Pliocene kleiige laag
+241	Kleiig deel van Lillo en of van de overgang Lillo-Kattendijk
+242	Kleiige overgang tussen de zanden van Kasterlee en Diest
+250	Mioceen Aquifersysteem
+251	Zand van Kattendijk en of onderste zandlaag van Lillo
+252	Zand van Diest
+253	Zand van Bolderberg
+254	Zanden van Berchem en of Voort
+255	Klei van Veldhoven
+256	Zand van Eigenbilzen
+300	Boom Aquitard
+301	Kleiig deel van Eigenbilzen
+302	Klei van Putte
+303	Klei van Terhagen
+304	Klei van Belsele-Waas
+400	Oligoceen Aquifersysteem
+410	Zand van Kerniel
+420	Klei van Kleine-Spouwen
+430	Ruisbroek-Berg Aquifer
+431	Zand van Berg
+432	Zand van Kerkom
+433	Kleiig zand van Oude Biezen
+434	Zand van Boutersem
+435	Zand van Ruisbroek
+436	Zand van Wintham
+440	Tongeren Aquitard
+441	Klei van Henis
+442	Klei van Watervliet
+450	Onder-Oligoceen Aquifersysteem
+451	Zand van Neerrepen
+452	Zand-Klei van Grimmertingen
+453	Kleiig zand van Bassevelde
+500	Bartoon Aquitardsysteem
+501	Klei van Onderdijke
+502	Zand van Buisputten
+503	Klei van Zomergem
+504	Zand van Onderdale
+505	Kleien van Ursel en of Asse
+600	Ledo Paniseliaan Brusseliaan Aquifersysteem
+610	Wemmel-Lede Aquifer
+611	Zand van Wemmel
+612	Zand van Lede
+620	Zand van Brussel
+630	Afzettingen van het Boven-Paniseliaan
+631	Zand van Aalter en of Oedelem
+632	Zandige klei van Beernem
+640	Afzettingen van het Onder-Paniseliaan
+700	Paniseliaan Aquitardsysteem
+701	Klei van Pittem
+702	Klei van Merelbeke
+800	Ieperiaan Aquifer
+900	Ieperiaan Aquitardsysteem
+910	Silt van Kortemark
+920	Afzettingen van Kortrijk
+921	Klei van Aalbeke
+922	Klei van Moen
+923	Zand van Mons-en-Pévèle
+924	Klei van Saint-Maur
+925	Klei van Mont-Héribu
+1000	Paleoceen Aquifersysteem
+1010	Landeniaan Aquifersysteem
+1011	Zand van Knokke
+1012	Zandige afzettingen van Loksbergen en of Dormaal
+1013	Zand van Grandglise
+1014	Kleiig deel van Lincent
+1015	Versteend deel van Lincent
+1020	Landeniaan en Heersiaan Aquitard
+1021	Siltige afzettingen van Halen
+1022	Klei van Waterschei
+1023	Slecht doorlatend deel van de mergels van Gelinden
+1030	Heersiaan en Opglabbeek Aquifersysteem
+1031	Doorlatend deel mergels van Gelinden
+1032	Zand van Orp
+1033	Zand van Eisden
+1034	Klei van Opoeteren
+1035	Zand van Maasmechelen
+1100	Krijt Aquifersysteem
+1110	Krijt Aquifer
+1111	Kalksteen van Houthem
+1112	Tufkrijt van Maastricht
+1113	Krijt van Gulpen
+1120	Afzettingen van Vaals
+1130	Zand van Aken
+1140	Turoonmergels op Massief van Brabant
+1150	Wealdiaan
+1200	Jura - Trias - Perm
+1210	Jura 
+1220	Trias 
+1230	Perm
+1300	Sokkel
+1310	Boven-Carboon (steenkoolterrein en -lagen)
+1320	Kolenkalk
+1330	Devoon
+1340	Cambro-Siluur Massief van Brabant
