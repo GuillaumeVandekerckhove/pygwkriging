@@ -432,7 +432,6 @@ def main(datafile,pydovdata):
                                        delimiter="\n", fmt="%s")
                             count += 1
 
-
                     if pydovdata == "no":
                         datum_monstername = [a.strip('/') for a in datum_monstername]
                         result = datum_monstername[-4] + datum_monstername[-3] + datum_monstername[-2] + datum_monstername[-1]
