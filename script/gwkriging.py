@@ -25,8 +25,8 @@ def pydov(pydovdata):
 
     list2.extend([pydovdata])
     if pydovdata == 'yes':
-        #import dov.data_pydov as datapydov
-        #datapydov.main2()
+        import dov.data_pydov as datapydov
+        datapydov.main2()
         output2 = output.strip('script')
         inputtxtfile = jp(output, 'Input.txt')
         spacetotab(inputtxtfile,2)
