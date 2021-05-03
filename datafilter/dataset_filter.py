@@ -5,12 +5,17 @@ import glob
 from os.path import join as jp
 from loguru import logger
 import time
+import sys
 
-def main():
+output_stream = sys.stdout
+
+
+
+def main(datafile,pydovdata):
     start = time.time()
     #Get the path of the project
     outputfile = os.getcwd()
-    #outputfile = jp(outputfile, "filterdata_variogram_kriging")
+    outputfile1 = outputfile.strip('script')
 
 
     def read_col(fname, col, convert, sep='\t'):
@@ -28,7 +33,19 @@ def main():
              return [convert(line.split(sep=sep)[col]) for line in fobj]
 
     #Ask the different parameters from the user
-    inputtxtfile = jp(outputfile, "filter_dataset", "Input.txt")
+    if datafile == 'yes':
+        None
+    else:
+        inputtxtfile = jp(outputfile1, "datafilter", "Input.txt")
+        list1 = []
+        list1.extend(['inputfile'] + ['hcov'] + ['datum'] + ['permkey'] + ['parameter'] + ['x'] + ['y'] + ['z'] + ['index'] + ['maps'])
+        np.savetxt(inputtxtfile, list1, delimiter="\n", fmt="%s")
+        print('Fill in the input file. Use a tab as separator.')
+        time.sleep(30)
+        inputok = input('Is the imputfile filled in? ')
+        if inputok == 'yes':
+            None
+    inputtxtfile = jp(outputfile1, "datafilter", "Input.txt")
     resinput = read_col(inputtxtfile, 1, str)
     inputtxt = []
     for i in resinput:
@@ -63,7 +80,14 @@ def main():
     outputfile = outputfile.replace("\\", "/")
     outputfile = outputfile.replace('"', '')
 
+    file = open(inputfile, 'r')
+    linestotal = file.readlines()
+    file.close()
+    lengthtotalfile = len(linestotal)
+    file.close()
+
     def maps():
+        logger.info(f"Start creating the folders.")
         """Create the folders to organize the data.
 
         If it's the first time you run the program, different folders are created to organize the data in the future
@@ -87,9 +111,11 @@ def main():
         else:
             None
 
+        logger.info(f"Created the folders.")
 
 
     def fileperaquifer():
+        logger.info(f"Start creating the different aquiferall files.")
         """Create the different aquifer files."""
         res = read_col(inputfile, column, int)
         unique = set(res)
@@ -107,7 +133,7 @@ def main():
             name - aquifercode
 
             """
-            hcov = jp(outputfile, "filter_dataset", "HCOV-versie1.txt")
+            hcov = jp(outputfile1, "datafilter", "HCOV-versie1.txt")
             file = open(hcov, 'r') # open the file that contains all the hcov codes
             lines = file.readlines() # run through all the different lines
             for line in lines: # select one line, than the next, ...
@@ -126,14 +152,15 @@ def main():
             list1 = []
             name_list()
             for line in lines:
-                parts = line.split()
+                parts = line.split('\t')
                 aquiferCode = parts[column]
                 if i == int(aquiferCode):
                     list1.extend([line])
             # save the list with each element as a different line, for each element in unique there is a different file
             np.savetxt(outputfile + '/aquiferall/' + name_list()+'.txt', list1, delimiter="\n", fmt="%s")
         file.close()
-
+        logger.info(f"Created the different aquiferall files.")
+        logger.info(f"Start creating the different aquiferhead files.")
         file = open(inputfile, 'r')
         lines = file.readlines()
         # create the files per aquifer head unit
@@ -311,11 +338,16 @@ def main():
                                     list2.extend([line])
                     np.savetxt(outputfile + '/aquiferhead/' + name + '.txt', list2, delimiter="\n", fmt="%s")
         file.close()
+        logger.info(f"Created the different aquiferhead files.")
 
     def fileperaquiferperyear():
+        count = 0
+        logger.info(f"Start creating the aquifer files per year.")
         """Create a file per year per aquifer code."""
         datafiles1 = glob.glob(outputfile + "/aquiferall//*.txt")  # all the files in the folder aquiferall
         datafiles2 = glob.glob(outputfile + "/aquiferhead//*.txt")  # all the files in the folder aquiferhead
+
+
         def joinStrings(stringList):
             """Add strings together to get one string."""
             return ''.join(string for string in stringList)
@@ -332,6 +364,7 @@ def main():
             datafilesperaquifer.extend([result2])
 
         for i in datafilesperaquifer:
+
             inputfile2 = i
             # create the name for the file (aquiferhead or aquiferall + aquifercode)
             nameinput = i[-19:-4]
@@ -362,10 +395,16 @@ def main():
                 unique - a unique list of the years that occur in the temporary file (so the unique years per aquifer code)
                 """
                 list3 = []
-                for i in res:
-                    result = [a.strip('/') for a in i]
-                    result = result[-4] + result[-3] + result[-2] + result[-1]
-                    list3.extend([result])
+                if pydovdata == "yes":
+                    for i in res:
+                        result = [a.strip('-') for a in i]
+                        result = result[0] + result[1] + result[2] + result[3]
+                        list3.extend([result])
+                if pydovdata == "no":
+                    for i in res:
+                        result = [a.strip('/') for a in i]
+                        result = result[-4] + result[-3] + result[-2] + result[-1]
+                        list3.extend([result])
                 unique = set(list3)
                 unique = sorted(unique)
                 return unique
@@ -376,21 +415,41 @@ def main():
             file = open(inputfile2, 'r')
             lines = file.readlines()
             # create a list with all the lines from that specific year
+
             for i in list4:
                 name = i
                 list5 = []
                 for line in lines:
                     parts = line.split(sep='\t')
                     datum_monstername = parts[column2]
-                    datum_monstername = [a.strip('/') for a in datum_monstername]
-                    result = datum_monstername[-4] + datum_monstername[-3] + datum_monstername[-2] + datum_monstername[-1]
-                    if i == result:
-                        list5.extend([line])
-                        #save the file that contains the data with the same aquifercode and the same year
-                        np.savetxt(outputfile + '/year/' + nameinput + '-' + name + '.txt', list5, delimiter="\n", fmt="%s")
+                    if pydovdata == "yes":
+                        datum_monstername = [a.strip('-') for a in datum_monstername]
+                        result = datum_monstername[0] + datum_monstername[1] + datum_monstername[2] + datum_monstername[3]
+                        if i == result:
+                            list5.extend([line])
+                            # save the file that contains the data with the same aquifercode and the same year
+                            np.savetxt(outputfile + '/year/' + nameinput + '-' + name + '.txt', list5,
+                                       delimiter="\n", fmt="%s")
+                            count += 1
+
+                    if pydovdata == "no":
+                        datum_monstername = [a.strip('/') for a in datum_monstername]
+                        result = datum_monstername[-4] + datum_monstername[-3] + datum_monstername[-2] + datum_monstername[-1]
+                        if i == result:
+                            list5.extend([line])
+                            # save the file that contains the data with the same aquifercode and the same year
+                            np.savetxt(outputfile + '/year/' + nameinput + '-' + name + '.txt', list5,
+                                       delimiter="\n", fmt="%s")
+                            count += 1
+
+                procent = ((count-1) / ((lengthtotalfile * 2) - 1)) * 100
+                procent = float("{:.2f}".format(procent))
+                logger.info(f"{procent} %")
             file.close()
+        logger.info(f"Created the aquifer files per year.")
 
     def results(naam,mindepthormaxvalue):
+        logger.info(f"Start creating the first results.")
         """Create the result files.
 
         naam: aquiferall/aquiferheadhcov-year
@@ -462,7 +521,8 @@ def main():
 
         np.savetxt(outputfile + '/resultsdata/' + naam + 'results_fullyear'+'.txt', result, delimiter="\t", fmt="%s")  # save a file with the results
         np.savetxt(outputfile + '/resultsdata/' + naam + 'error_fullyear'+'.txt', error, delimiter="\t", fmt="%s")  # save a file with the errors
-
+        logger.info(f"Created the first results.")
+        logger.info(f"Start creating the 2D results.")
         inputfile4 = outputfile + '/resultsdata/' + naam + 'results_fullyear.txt'
         inputfile4 = inputfile4.replace("\\", "/")
         inputfile4 = inputfile4.replace('"', '')
@@ -546,8 +606,10 @@ def main():
             list9 = []
             for line in lines:
                 parts = line.split()
+
                 xy = parts[x] + ' ' + parts[y]
-                if str(i) == xy:
+
+                if str(i) == str(xy):
                     list9.extend([line])
             res = [i.strip("'").split("\t") for i in list9]
 
@@ -556,10 +618,13 @@ def main():
             sorted1 = []
             for i in res:
                 depth1 = i[z]
-                if depth1 == '':
+                if depth1 == ' ':
                     sorted1.extend([i])
-                else:
-                    depthlist1.extend([float(depth1)])
+                if depth1 != '':
+                    if depth1 != '\n':
+                        depthlist1.extend([float(depth1)])
+
+
             if depthlist1 != []:
                 sorteddepth = sorted(depthlist1)
                 for i in sorteddepth:
@@ -571,8 +636,12 @@ def main():
             res = sorted1
 
 
+
+
             if len(list9) == 1:  # if there is only one solution for the xy coordinate, than this is the solution
-                result.extend([res[0]])
+                if res != []:
+                    result.extend([res[0]])
+
             if len(list9) > 1:  # if there are more than one solution for the xy coordinate
                 list8 = []
                 for j in ind2:
@@ -589,8 +658,9 @@ def main():
         np.savetxt(outputfile + '/resultsdata2d/' + naam + mindepthormaxvalue + 'error2d'+'.txt', error, delimiter="\t", fmt="%s")  # save a file with the errors
 
         file.close()
-
+        logger.info(f"Created the 2d results.")
     def fileforsgems(naam, mindepthormaxvalue):
+        logger.info(f"Start creating the data file for SGeMS.")
 
         inputfile5 = outputfile + '/resultsdata2d/' + naam + mindepthormaxvalue + 'resultsdata2d.txt'
         inputfile5 = inputfile5.replace("\\", "/")
@@ -615,7 +685,7 @@ def main():
             newline = parts[x] + ' ' + parts[y] + ' ' + parts[parameter] + ' ' + parts[index]
             list10.extend([newline])
         np.savetxt(outputfile + '/resultsdata2d/' + naam + mindepthormaxvalue + 'resultsdata2d_sgems'+'.txt', list10, delimiter="\n", fmt="%s")
-
+        logger.info(f"Created the data file for SGeMS0.")
 
         rerun = input("Do you want to make another map? (yes or no) ")  # ask if the user want to make another map
 
