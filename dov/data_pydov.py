@@ -58,7 +58,7 @@ def main2():
     upperrighty = 250000 #int(input('What is the upper right value of y? '))#250000
     maxlowerleftx = 250000 #int(input('What is the maximum lower left value of x? '))#250000
     maxupperrightx = 260000 #int(input('What is the maximum upper right value of x? '))#260000
-    parameter = input('What is the parameter? (Al, pH, Volumetrisch vochtgehalte, Vochtspanning, Ni, Cr, Kalkgehalte, Fe, T, Cu Glauconiet totaal, K , S, Zn, Pb, Fluor, As, Cd, Hg, Eh°, Na, Mg, NH4, Ca, Mn, Cl, SO4, HCO3, CO3, NO3, NO2, PO4, Sb, Co, Ag, Au, Ba, Be, B, Mo, Tha, Ti, V, Br, CN, CO2, Se, SiO2, F, Fe(Tot.), Fe2+, Fe3+, P, NaCl, H(tot), Si, N-totaal, P-totaal, PO4(Tot.), Sr, Sn, ...) ')
+    parameter = input('What is the parameter? (Al, pH, Volumetrisch vochtgehalte, Vochtspanning, Ni, Cr, Kalkgehalte, Fe, T, Cu, Glauconiet totaal, K , S, Zn, Pb, Fluor, As, Cd, Hg, Eh°, Na, Mg, NH4, Ca, Mn, Cl, SO4, HCO3, CO3, NO3, NO2, PO4, Sb, Co, Ag, Au, Ba, Be, B, Mo, Tha, Ti, V, Br, CN, CO2, Se, SiO2, F, Fe(Tot.), Fe2+, Fe3+, P, NaCl, H(tot), Si, N-totaal, P-totaal, PO4(Tot.), Sr, Sn, ...) ')
 
     fields = gwmonster.get_fields()
     print(fields['parameter'])
