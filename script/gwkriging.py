@@ -16,7 +16,6 @@ from loguru import logger
 
 files = []
 list1 = []
-list2 = []
 
 os.mkdir("programrun")  # create a folder where are the files can be placed to at the end of the program
 os.mkdir("QGiS")  # create a folder where the results with the coordinates are saved
@@ -26,10 +25,9 @@ output1 = jp(output, "programrun")
 
 def pydov(pydovdata):
     """ The function to get the data from DOV through pydov."""
-    list2.extend([pydovdata])
     if pydovdata == 'yes':
         import dov.data_pydov as datapydov
-        datapydov.main2()  # run the script that downloads the data
+        datapydov.main()  # run the script that downloads the data
         output2 = output.strip('script')
         inputtxtfile = jp(output, 'Input.txt')
         spacetotab(inputtxtfile,2)  # changes the spaces in the input.txt file to tab
@@ -41,10 +39,10 @@ def pydov(pydovdata):
         None
 
 
-def filterdata(datafile, pydovdata):
+def filterdata(pydovdata):
     """ The function that filters the input data, created by pydov or a txt file """
     import datafilter.dataset_filter as data
-    data.main(datafile,pydovdata)  # run the script that filters the data
+    data.main(pydovdata)  # run the script that filters the data
 
 
 def spacetotab(i, columns):
@@ -234,6 +232,7 @@ def removefolder():
     """ Function to move al the files, that were made during the program, to the 'programrun' folder. """
     move = input('Do you want to remove the temporary files and the definitive folders? ')
     if move == 'yes':
+        output3 = output.strip('script')
         aquiferall = jp(output, "aquiferall")
         aquiferhead = jp(output, "aquiferhead")
         resultsdata = jp(output, "resultsdata")
@@ -244,11 +243,11 @@ def removefolder():
         inputfile4 = jp(output, "inputfile4")
         resultsdata2d_sgems = jp(output, "resultsdata2d_sgems")
         qgis = jp(output, "QGiS")
-        files.extend([aquiferall] + [aquiferhead] + [resultsdata] + [resultsdata2d] + [year] + [inputfile2] + [inputfile3] + [inputfile4] + [resultsdata2d_sgems] + [qgis])
+        inputtxt = jp(output3, "datafilter", "Input.txt")
+        files.extend([aquiferall] + [aquiferhead] + [resultsdata] + [resultsdata2d] + [year] + [inputfile2] + [inputfile3] + [inputfile4] + [resultsdata2d_sgems] + [qgis] + [inputtxt])
         for f in files:
             shutil.move(f, output1)
-        output3 = output.strip('script')
-        shutil.move(output1,output3)
+        shutil.move(output1, output3)
     else:
         None
 
@@ -258,8 +257,7 @@ def run():
     start = time.time()
     pydovdata = input('Do you want to work with pydov or not? (yes/no) ')
     pydov(pydovdata)
-    for i in list2:
-        filterdata(i,pydovdata)
+    filterdata(pydovdata)
     nbpoints = input('How many points do you want the variogram to display? ')
     nbpoints = int(nbpoints)
     variogram(nbpoints)

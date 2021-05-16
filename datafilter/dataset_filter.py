@@ -11,7 +11,7 @@ output_stream = sys.stdout
 
 
 
-def main(datafile,pydovdata):
+def main(pydovdata):
     start = time.time()
     #Get the path of the project
     outputfile = os.getcwd()
@@ -33,7 +33,7 @@ def main(datafile,pydovdata):
              return [convert(line.split(sep=sep)[col]) for line in fobj]
 
     #Ask the different parameters from the user
-    if datafile == 'yes':
+    if pydovdata == 'yes':
         None
     else:
         inputtxtfile = jp(outputfile1, "datafilter", "Input.txt")
