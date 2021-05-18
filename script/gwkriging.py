@@ -23,6 +23,16 @@ output = os.getcwd()
 output1 = jp(output, "programrun")
 
 
+def spacetotab(i, columns):
+    """ Changes the seperator from space to tab in a text file.
+    i = input file
+    columns = how many columns the input file has (works for two and 4 columns)
+    """
+    import pysgemsAdd.space_to_tab as tab
+    tab.main(i, columns)  # run the script that changes the seperator
+    #space_to_tab.main(i)                               import later from pysgems
+
+
 def pydov(pydovdata):
     """ The function to get the data from DOV through pydov."""
     if pydovdata == 'yes':
@@ -43,16 +53,6 @@ def filterdata(pydovdata):
     """ The function that filters the input data, created by pydov or a txt file """
     import datafilter.dataset_filter as data
     data.main(pydovdata)  # run the script that filters the data
-
-
-def spacetotab(i, columns):
-    """ Changes the seperator from space to tab in a text file.
-    i = input file
-    columns = how many columns the input file has (works for two and 4 columns)
-    """
-    import pysgemsAdd.space_to_tab as tab
-    tab.main(i, columns)  # run the script that changes the seperator
-    #space_to_tab.main(i)                               import later from pysgems
 
 
 def joinStrings(stringList):
