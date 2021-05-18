@@ -17,12 +17,12 @@ outputfile = os.getcwd()
 
 # asking the coordinates of the starting and ending bounding box
 print("We're going to define a starting and ending bounding box to get the data. This is to make sure that all the data is received.  ")
-minlowerleftx = 20000  # int(input('What is the minimum lower left value of x? '))#20000
-lowerlefty = 150000  # int(input('What is the lower left value of y? '))#150000
-minupperrightx = 25000  # int(input('What is the minimum upper right value of x? '))#25000
-upperrighty = 250000  # int(input('What is the upper right value of y? '))#250000
-maxlowerleftx = 250000  # int(input('What is the maximum lower left value of x? '))#250000
-maxupperrightx = 260000  # int(input('What is the maximum upper right value of x? '))#260000
+minlowerleftx = int(input('What is the minimum lower left value of x? '))  # 20000
+lowerlefty = int(input('What is the lower left value of y? '))  # 150000
+minupperrightx = int(input('What is the minimum upper right value of x? '))  # 25000
+upperrighty = int(input('What is the upper right value of y? '))  # 250000
+maxlowerleftx = int(input('What is the maximum lower left value of x? '))  # 250000
+maxupperrightx = int(input('What is the maximum upper right value of x? '))  # 260000
 # asking from which parameter the data has to be downloaded
 parameter = input('What is the parameter? (Al, pH, Volumetrisch vochtgehalte, Vochtspanning, Ni, Cr, Kalkgehalte, Fe, T, Cu, Glauconiet totaal, K , S, Zn, Pb, Fluor, As, Cd, Hg, Eh°, Na, Mg, NH4, Ca, Mn, Cl, SO4, HCO3, CO3, NO3, NO2, PO4, Sb, Co, Ag, Au, Ba, Be, B, Mo, Tha, Ti, V, Br, CN, CO2, Se, SiO2, F, Fe(Tot.), Fe2+, Fe3+, P, NaCl, H(tot), Si, N-totaal, P-totaal, PO4(Tot.), Sr, Sn, ...) ')
 
