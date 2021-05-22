@@ -17,8 +17,12 @@ from loguru import logger
 files = []
 list1 = []
 
-os.mkdir("programrun")  # create a folder where are the files can be placed to at the end of the program
-os.mkdir("QGiS")  # create a folder where the results with the coordinates are saved
+startmaps = input('Are there already maps? (yes/no) ')
+if startmaps == 'yes':
+    None
+else:
+    os.mkdir("programrun")  # create a folder where are the files can be placed to at the end of the program
+    os.mkdir("QGiS")  # create a folder where the results with the coordinates are saved
 output = os.getcwd()
 output1 = jp(output, "programrun")
 
@@ -34,6 +38,7 @@ def spacetotab(i, columns):
 
 
 def pydov(pydovdata):
+    start = time.time()
     """ The function to get the data from DOV through pydov."""
     if pydovdata == 'yes':
         import dov.data_pydov as datapydov
@@ -47,13 +52,14 @@ def pydov(pydovdata):
 
     else:
         None
-
+    logger.info(f"Ran the pydov data in {time.time() - start} s or {(time.time() - start) / 60} min")
 
 def filterdata(pydovdata):
+    start = time.time()
     """ The function that filters the input data, created by pydov or a txt file """
     import datafilter.dataset_filter as data
     data.main(pydovdata)  # run the script that filters the data
-
+    start = time.time()
 
 def joinStrings(stringList):
     """Add strings together to get one string."""
@@ -77,10 +83,11 @@ def getsgemsfiles():
 
 
 def variogram(nbpoints):
+    start = time.time()
     """ Function to create the variograms.
     nbpoints = the number of points that have to be displayed by the variogram
     """
-    getsgemsfiles()  # get the files for kriging
+
     import pysgemsAdd.variogram_total as variogram
 
     for i in list1:
@@ -102,7 +109,7 @@ def variogram(nbpoints):
         inputfile = inputfile + 'spacetotabsno_whiterules.txt'
         variogram.main(inputfile, nbpoints)  # run the script to make the variograms
         #variogram_total.main(inputfile, nbpoints)                  import later from pysgems
-
+    logger.info(f"Ran the variogram in {time.time() - start} s or {(time.time() - start) / 60} min")
 
 def coordinates(inputfile, dx_input, dy_input, x0_input, y0_input, x_lim_input, y_lim_input):
     """ Function to add the coordinates to a gslib file that was the result of kriging. """
@@ -113,6 +120,7 @@ def coordinates(inputfile, dx_input, dy_input, x0_input, y0_input, x_lim_input, 
 
 
 def kriging(dataset):
+    start = time.time()
     list2 = []
     # %% Initiate sgems pjt
     cwd = os.getcwd()  # Working directory
@@ -186,7 +194,7 @@ def kriging(dataset):
     al.xml_reader(xml_name)
 
     # %% Show xml structure tree
-    al.show_tree()
+    # al.show_tree()
 
     # %% Modify xml below:
     # By default, the feature grid name of feature X is called 'X_grid'.
@@ -208,25 +216,22 @@ def kriging(dataset):
     result_file_kriging = jp(rdir, namekriging + ".grid")
     save = "kriging"
     #pl.plot_2d(namekriging, save=save)
-    pl.plot_2d(res_file=result_file_kriging, save=save)
+    pl.plot_2d(namekriging, res_file=result_file_kriging, save=save)
     list2.extend([result_file_kriging])
 
-    """
-    Code for variance map (not yet in pysgems)
-    
-    namekrigingvar = "results(var)"
+    namekrigingvar = "results_var"
     result_file_kriging_variance = jp(rdir, namekrigingvar + ".grid")
     save = "kriging_var"
     #pl.plot_2d(namekrigingvar, save=save)
-    pl.plot_2d(res_file=result_file_kriging_variance, save=save)
-    plt.close()
+    pl.plot_2d(namekrigingvar, res_file=result_file_kriging_variance, save=save)
     list2.extend([result_file_kriging_variance])
-    
-    """
 
+    logger.info(f"Ran the kriging in {time.time() - start} s or {(time.time() - start) / 60} min")
+
+    start = time.time()
     for i in list2:
         coordinates(i, dx_input, dy_input, x0_input, y0_input, x_lim_input, y_lim_input)
-
+    logger.info(f"Ran the coordinates in {time.time() - start} s or {(time.time() - start) / 60} min")
 
 def removefolder():
     """ Function to move al the files, that were made during the program, to the 'programrun' folder. """
@@ -258,6 +263,7 @@ def run():
     pydovdata = input('Do you want to work with pydov or not? (yes/no) ')
     pydov(pydovdata)
     filterdata(pydovdata)
+    getsgemsfiles()  # get the files for kriging
     nbpoints = input('How many points do you want the variogram to display? ')
     nbpoints = int(nbpoints)
     variogram(nbpoints)

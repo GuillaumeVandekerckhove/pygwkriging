@@ -444,7 +444,9 @@ def main(pydovdata):
 
                 procent = ((count-1) / ((lengthtotalfile * 2) - 1)) * 100
                 procent = float("{:.2f}".format(procent))
-                logger.info(f"{procent} %")
+                for i in range(0, 101):
+                    if procent == float(i):
+                        logger.info(f"{procent} %")
             file.close()
         logger.info(f"Created the aquifer files per year.")
 
