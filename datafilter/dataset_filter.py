@@ -342,6 +342,7 @@ def main(pydovdata):
 
     def fileperaquiferperyear():
         count = 0
+        a = 1000
         logger.info(f"Start creating the aquifer files per year.")
         """Create a file per year per aquifer code."""
         datafiles1 = glob.glob(outputfile + "/aquiferall//*.txt")  # all the files in the folder aquiferall
@@ -444,9 +445,12 @@ def main(pydovdata):
 
                 procent = ((count-1) / ((lengthtotalfile * 2) - 1)) * 100
                 procent = float("{:.2f}".format(procent))
+                procent = int(procent)
                 for i in range(0, 101):
                     if procent == float(i):
-                        logger.info(f"{procent} %")
+                        if a != procent:
+                            logger.info(f"{procent} %")
+                a = procent
             file.close()
         logger.info(f"Created the aquifer files per year.")
 
