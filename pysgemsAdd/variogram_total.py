@@ -616,7 +616,7 @@ def variogramfit(inputfile, distances, values, vg_model, nr_pairs=None, vg_range
             Range = float(listvar[0])
             sill = float(listvar[1])
             nugget = float(listvar[2])
-            contribution = float(sill-nugget)
+            contribution = float(sill)
 
             for i in listvar[3]:
                 vg_model = str(i)

@@ -628,7 +628,7 @@ def main(pydovdata):
                     sorted1.extend([i])
                 if depth1 != '':
                     if depth1 != '\n':
-                        depthlist1.extend([float(depth1)])
+                       depthlist1.extend([float(depth1)])
 
 
             if depthlist1 != []:
